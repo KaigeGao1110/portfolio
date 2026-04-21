@@ -14,97 +14,70 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleLinkClick = () => setMobileOpen(false);
+  const navStyle: React.CSSProperties = {
+    position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+    transition: 'all 0.3s',
+    ...(scrolled ? {
+      background: 'rgba(255,255,255,0.85)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+      borderBottom: '1px solid #e5e7eb',
+      boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
+    } : { background: 'transparent' }),
+  };
+
+  const innerStyle: React.CSSProperties = {
+    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: 'clamp(0.75rem,2vw,1rem) clamp(1rem,3vw,1.5rem)',
+  };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm'
-          : 'bg-transparent'
-      }`}
-    >
-      <div
-        className="flex items-center justify-between"
-        style={{ padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem)' }}
-      >
-        <a
-          href="#"
-          className="text-xl font-bold tracking-wider text-[#3b82f6] hover:text-[#60a5fa] transition-colors"
-        >
-          KG
-        </a>
+    <nav style={navStyle}>
+      <div style={innerStyle}>
+        <a href="#" style={{ fontSize: 18, fontWeight: 800, letterSpacing: '0.12em', color: '#3b82f6', textDecoration: 'none' }}>KG</a>
 
-        {/* Desktop nav */}
-        <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                className="text-sm font-medium text-gray-600 hover:text-[#3b82f6] transition-colors duration-200 tracking-wide"
-              >
-                {link.label}
+        {/* Desktop */}
+        <ul style={{ display: 'flex', alignItems: 'center', gap: 32, listStyle: 'none', margin: 0, padding: 0 }}
+            className="desktop-nav">
+          {navLinks.map(l => (
+            <li key={l.label}>
+              <a href={l.href} style={{ fontSize: 13, fontWeight: 500, color: '#6b7280', textDecoration: 'none', letterSpacing: '0.04em', transition: 'color 0.2s' }}
+                onMouseEnter={e => (e.target as HTMLElement).style.color='#3b82f6'}
+                onMouseLeave={e => (e.target as HTMLElement).style.color='#6b7280'}>
+                {l.label}
               </a>
             </li>
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg bg-blue-50 text-[#3b82f6] border border-blue-200 hover:bg-blue-100 hover:border-blue-300 transition-all duration-200"
-        >
+        <a href="#contact"
+          style={{ fontSize: 13, fontWeight: 600, padding: '7px 14px', borderRadius: 8, background: '#eff6ff', color: '#3b82f6', border: '1px solid #dbeafe', textDecoration: 'none', transition: 'all 0.2s' }}
+          onMouseEnter={e => { e.currentTarget.style.background='#dbeafe'; e.currentTarget.style.borderColor='#93c5fd'; }}
+          onMouseLeave={e => { e.currentTarget.style.background='#eff6ff'; e.currentTarget.style.borderColor='#dbeafe'; }}>
           Hire Me
         </a>
-
-        {/* Hamburger button */}
-        <button
-          className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          <span
-            className={`block w-5 h-0.5 bg-gray-600 transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`}
-          />
-          <span
-            className={`block w-5 h-0.5 bg-gray-600 transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`}
-          />
-          <span
-            className={`block w-5 h-0.5 bg-gray-600 transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`}
-          />
-        </button>
       </div>
 
       {/* Mobile dropdown */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ${
-          mobileOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
-        <div className="px-6 pb-4 flex flex-col gap-3 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={handleLinkClick}
-              className="text-sm font-medium text-gray-600 hover:text-[#3b82f6] transition-colors py-2"
-            >
-              {link.label}
+      {mobileOpen && (
+        <div style={{ padding: '0 24px 16px', display: 'flex', flexDirection: 'column', gap: 12, background: 'rgba(255,255,255,0.97)', borderBottom: '1px solid #e5e7eb' }}>
+          {navLinks.map(l => (
+            <a key={l.label} href={l.href} onClick={() => setMobileOpen(false)}
+               style={{ fontSize: 13, fontWeight: 500, color: '#6b7280', textDecoration: 'none', padding: '8px 0' }}>
+              {l.label}
             </a>
           ))}
-          <a
-            href="#contact"
-            onClick={handleLinkClick}
-            className="mt-1 mb-2 text-center text-sm font-semibold px-4 py-2.5 rounded-lg bg-blue-50 text-[#3b82f6] border border-blue-200"
-          >
-            Hire Me
-          </a>
         </div>
-      </div>
+      )}
+
+      <style>{`
+        @media (max-width: 768px) { .desktop-nav { display: none !important; } }
+      `}</style>
     </nav>
   );
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 
 const roles = ['AI Agent Builder', 'Cloud Architect', 'Indie Founder'];
 
@@ -9,268 +8,110 @@ export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => { setTimeout(() => setVisible(true), 100); }, []);
 
   useEffect(() => {
-    const currentRole = roles[roleIndex];
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          if (displayText.length < currentRole.length) {
-            setDisplayText(currentRole.slice(0, displayText.length + 1));
-          } else {
-            setTimeout(() => setIsDeleting(true), 2500);
-          }
+    const current = roles[roleIndex];
+    const speed = isDeleting ? 50 : 100;
+    const t = setTimeout(() => {
+      if (!isDeleting) {
+        if (displayText.length < current.length) {
+          setDisplayText(current.slice(0, displayText.length + 1));
         } else {
-          if (displayText.length > 0) {
-            setDisplayText(displayText.slice(0, -1));
-          } else {
-            setIsDeleting(false);
-            setRoleIndex((prev) => (prev + 1) % roles.length);
-          }
+          setTimeout(() => setIsDeleting(true), 2500);
         }
-      },
-      isDeleting ? 50 : 100
-    );
-    return () => clearTimeout(timeout);
+      } else {
+        if (displayText.length > 0) {
+          setDisplayText(displayText.slice(0, -1));
+        } else {
+          setIsDeleting(false);
+          setRoleIndex(p => (p + 1) % roles.length);
+        }
+      }
+    }, speed);
+    return () => clearTimeout(t);
   }, [displayText, isDeleting, roleIndex]);
 
+  const sectionStyle: React.CSSProperties = {
+    position: 'relative', minHeight: '100vh',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    overflow: 'hidden',
+    backgroundImage: 'linear-gradient(rgba(59,130,246,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.04) 1px,transparent 1px)',
+    backgroundSize: 'clamp(30px,5vw,50px) clamp(30px,5vw,50px)',
+  };
+
+  const fadeStyle = (delay: number): React.CSSProperties => ({
+    opacity: visible ? 1 : 0,
+    transform: visible ? 'translateY(0)' : 'translateY(30px)',
+    transition: `opacity 0.8s ease ${delay}s, transform 0.8s ease ${delay}s`,
+  });
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden cyber-grid">
-      {/* Gradient Orbs — fluid sizing with clamp */}
-      <div
-        className="absolute rounded-full animate-pulse-glow"
-        style={{
-          top: '25%',
-          left: '25%',
-          width: 'clamp(180px, 25vw, 400px)',
-          height: 'clamp(180px, 25vw, 400px)',
-          background: 'rgba(59, 130, 246, 0.12)',
-          filter: 'blur(48px)',
-        }}
-      />
-      <div
-        className="absolute rounded-full animate-pulse-glow"
-        style={{
-          bottom: '25%',
-          right: '25%',
-          width: 'clamp(150px, 20vw, 350px)',
-          height: 'clamp(150px, 20vw, 350px)',
-          background: 'rgba(139, 92, 246, 0.10)',
-          filter: 'blur(48px)',
-          animationDelay: '2s',
-        }}
-      />
-      <div
-        className="absolute rounded-full animate-pulse-glow"
-        style={{
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 'clamp(280px, 40vw, 650px)',
-          height: 'clamp(280px, 40vw, 650px)',
-          background: 'rgba(59, 130, 246, 0.08)',
-          filter: 'blur(80px)',
-          animationDelay: '1s',
-        }}
-      />
+    <section style={sectionStyle}>
+      {/* Orbs */}
+      <div style={{ position:'absolute', top:'25%', left:'25%', width:'clamp(180px,25vw,400px)', height:'clamp(180px,25vw,400px)', borderRadius:'50%', background:'rgba(59,130,246,0.12)', filter:'blur(48px)', animation:'pulseGlow 4s ease-in-out infinite' }}/>
+      <div style={{ position:'absolute', bottom:'25%', right:'25%', width:'clamp(150px,20vw,350px)', height:'clamp(150px,20vw,350px)', borderRadius:'50%', background:'rgba(139,92,246,0.10)', filter:'blur(48px)', animation:'pulseGlow 4s ease-in-out 2s infinite' }}/>
+      <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'clamp(280px,40vw,650px)', height:'clamp(280px,40vw,650px)', borderRadius:'50%', background:'rgba(59,130,246,0.08)', filter:'blur(80px)', animation:'pulseGlow 4s ease-in-out 1s infinite' }}/>
 
-      {/* Floating shapes — fluid positioning */}
-      <div
-        className="absolute rounded-2xl border animate-float"
-        style={{
-          top: 'clamp(60px, 10vw, 120px)',
-          right: 'clamp(20px, 5vw, 120px)',
-          width: 'clamp(60px, 8vw, 140px)',
-          height: 'clamp(60px, 8vw, 140px)',
-          borderColor: 'rgba(59, 130, 246, 0.15)',
-          transform: 'rotate(12deg)',
-        }}
-      />
-      <div
-        className="absolute rounded-full border animate-float-delayed"
-        style={{
-          bottom: 'clamp(80px, 15vw, 180px)',
-          left: 'clamp(20px, 4vw, 80px)',
-          width: 'clamp(50px, 6vw, 100px)',
-          height: 'clamp(50px, 6vw, 100px)',
-          borderColor: 'rgba(139, 92, 246, 0.15)',
-        }}
-      />
-      <div
-        className="absolute rounded-lg border animate-float-delayed-2"
-        style={{
-          top: 'clamp(100px, 18vw, 200px)',
-          left: 'clamp(30px, 8vw, 150px)',
-          width: 'clamp(30px, 5vw, 70px)',
-          height: 'clamp(30px, 5vw, 70px)',
-          borderColor: 'rgba(0, 0, 0, 0.08)',
-          transform: 'rotate(45deg)',
-        }}
-      />
-      <div
-        className="absolute rounded-full animate-float"
-        style={{
-          bottom: 'clamp(50px, 10vw, 100px)',
-          right: 'clamp(30px, 8vw, 160px)',
-          width: 'clamp(40px, 5vw, 90px)',
-          height: 'clamp(40px, 5vw, 90px)',
-          background: 'rgba(59, 130, 246, 0.04)',
-          border: '1px solid rgba(59, 130, 246, 0.15)',
-        }}
-      />
+      {/* Floating shapes */}
+      <div style={{ position:'absolute', top:'clamp(60px,10vw,120px)', right:'clamp(20px,5vw,120px)', width:'clamp(60px,8vw,140px)', height:'clamp(60px,8vw,140px)', borderRadius:16, border:'2px solid rgba(59,130,246,0.15)', transform:'rotate(12deg)', animation:'float 8s ease-in-out infinite' }}/>
+      <div style={{ position:'absolute', bottom:'clamp(80px,15vw,180px)', left:'clamp(20px,4vw,80px)', width:'clamp(50px,6vw,100px)', height:'clamp(50px,6vw,100px)', borderRadius:'50%', border:'2px solid rgba(139,92,246,0.15)', animation:'float 10s ease-in-out 2s infinite' }}/>
 
-      {/* Content — fluid width, always centered */}
-      <div
-        className="hero-content relative z-10 text-center"
-        style={{
-          paddingLeft: 'var(--section-px)',
-          paddingRight: 'var(--section-px)',
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          <p
-            className="uppercase tracking-[0.25em] mb-6"
-            style={{ color: 'var(--accent)', fontSize: 'clamp(0.7rem, 1.5vw, 0.875rem)' }}
-          >
+      {/* Content */}
+      <div style={{ position:'relative', zIndex:10, textAlign:'center', width:'100%', maxWidth:'min(100%,1400px)', margin:'0 auto', padding:'0 clamp(1rem,5vw,3rem)' }}>
+        <div style={fadeStyle(0)}>
+          <p style={{ textTransform:'uppercase', letterSpacing:'0.25em', color:'#3b82f6', fontSize:'clamp(0.7rem,1.5vw,0.875rem)', marginBottom:24, fontWeight:600 }}>
             Welcome to my digital universe
           </p>
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          className="fluid-hero-title mb-4 gradient-text"
-          style={{ maxWidth: '18ch', marginLeft: 'auto', marginRight: 'auto' }}
-        >
-          Hi, I am Kaige Gao
-        </motion.h1>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-          className="flex items-center justify-center mb-6"
-          style={{ height: 'clamp(2.5rem, 6vw, 4rem)' }}
-        >
-          <span className="fluid-subtitle" style={{ color: 'rgba(26,26,26,0.9)' }}>
+        </div>
+        <div style={fadeStyle(0.2)}>
+          <h1 style={{
+            fontSize:'clamp(2.5rem,8vw,6rem)', fontWeight:800, lineHeight:1.05,
+            marginBottom:16, maxWidth:'18ch', marginLeft:'auto', marginRight:'auto',
+            background:'linear-gradient(135deg,#1a1a1a 0%,#3b82f6 50%,#1a1a1a 100%)',
+            backgroundSize:'200% auto',
+            WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
+            backgroundClip:'text',
+            animation:'shimmer 3s ease-in-out infinite',
+          }}>
+            Hi, I am Kaige Gao
+          </h1>
+        </div>
+        <div style={{ ...fadeStyle(0.4), height:'clamp(2.5rem,6vw,4rem)', display:'flex', alignItems:'center', justifyContent:'center', marginBottom:24 }}>
+          <span style={{ fontSize:'clamp(1.25rem,3vw,2.5rem)', fontWeight:600, color:'rgba(26,26,26,0.9)' }}>
             {displayText}
-            <span
-              className="inline-block ml-1 align-middle"
-              style={{
-                width: '2px',
-                height: 'clamp(1.5rem, 4vw, 2.5rem)',
-                background: 'var(--accent)',
-                animation: 'pulse 1s ease-in-out infinite',
-              }}
-            />
+            <span style={{ display:'inline-block', width:2, height:'clamp(1.5rem,4vw,2.5rem)', background:'#3b82f6', marginLeft:4, verticalAlign:'middle', animation:'blink 1s ease-in-out infinite' }}/>
           </span>
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
-          className="mb-10 text-center"
-          style={{
-            color: 'rgba(75,75,75,0.7)',
-            fontSize: 'var(--text-body)',
-            maxWidth: '55ch',
-            margin: '0 auto',
-            lineHeight: 1.6,
-          }}
-        >
-          Building autonomous systems that work while I sleep.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
-          className="flex items-center justify-center gap-4 flex-wrap"
-          style={{ gap: 'clamp(0.75rem, 2vw, 1.5rem)' }}
-        >
-          <a
-            href="#projects"
-            className="font-bold transition-all duration-300"
-            style={{
-              padding: 'clamp(0.625rem, 1.5vw, 0.875rem) clamp(1.25rem, 3vw, 2rem)',
-              borderRadius: '0.75rem',
-              background: 'var(--accent)',
-              color: '#ffffff',
-              fontSize: 'var(--text-body)',
-              fontWeight: 700,
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.background = '#60a5fa';
-              (e.target as HTMLElement).style.boxShadow = '0 4px 20px rgba(59,130,246,0.35)';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.background = 'var(--accent)';
-              (e.target as HTMLElement).style.boxShadow = 'none';
-            }}
-          >
+        </div>
+        <div style={fadeStyle(0.6)}>
+          <p style={{ color:'rgba(75,75,75,0.7)', fontSize:'clamp(1rem,1.5vw,1.25rem)', maxWidth:'55ch', margin:'0 auto 40px', lineHeight:1.6 }}>
+            Building autonomous systems that work while I sleep.
+          </p>
+        </div>
+        <div style={{ ...fadeStyle(0.8), display:'flex', alignItems:'center', justifyContent:'center', gap:'clamp(0.75rem,2vw,1.5rem)', flexWrap:'wrap' }}>
+          <a href="#projects"
+            style={{ padding:'clamp(0.625rem,1.5vw,0.875rem) clamp(1.25rem,3vw,2rem)', borderRadius:12, background:'#3b82f6', color:'#fff', fontSize:'clamp(1rem,1.5vw,1.25rem)', fontWeight:700, textDecoration:'none', transition:'all 0.3s', display:'inline-flex', alignItems:'center', gap:8 }}
+            onMouseEnter={e => { e.currentTarget.style.background='#60a5fa'; e.currentTarget.style.boxShadow='0 4px 20px rgba(59,130,246,0.35)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background='#3b82f6'; e.currentTarget.style.boxShadow='none'; }}>
             View Projects
           </a>
-          <a
-            href="#contact"
-            className="font-semibold transition-all duration-300"
-            style={{
-              padding: 'clamp(0.625rem, 1.5vw, 0.875rem) clamp(1.25rem, 3vw, 2rem)',
-              borderRadius: '0.75rem',
-              border: '1px solid rgba(59, 130, 246, 0.4)',
-              color: 'var(--accent)',
-              fontSize: 'var(--text-body)',
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.background = 'rgba(59, 130, 246, 0.1)';
-              (e.target as HTMLElement).style.borderColor = 'var(--accent)';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.background = 'transparent';
-              (e.target as HTMLElement).style.borderColor = 'rgba(59, 130, 246, 0.4)';
-            }}
-          >
+          <a href="#contact"
+            style={{ padding:'clamp(0.625rem,1.5vw,0.875rem) clamp(1.25rem,3vw,2rem)', borderRadius:12, border:'1px solid rgba(59,130,246,0.4)', color:'#3b82f6', fontSize:'clamp(1rem,1.5vw,1.25rem)', fontWeight:600, textDecoration:'none', transition:'all 0.3s' }}
+            onMouseEnter={e => { e.currentTarget.style.background='rgba(59,130,246,0.1)'; e.currentTarget.style.borderColor='#3b82f6'; }}
+            onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.borderColor='rgba(59,130,246,0.4)'; }}>
             Get in Touch
           </a>
-        </motion.div>
+        </div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2"
-        style={{ transform: 'translateX(-50%)' }}
-      >
-        <div
-          className="rounded-full flex items-start justify-center p-1"
-          style={{ border: '2px solid rgba(0,0,0,0.12)' }}
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="rounded-full"
-            style={{
-              width: '6px',
-              height: 'clamp(8px, 1.5vw, 14px)',
-              background: 'var(--accent)',
-            }}
-          />
+      <div style={{ position:'absolute', bottom:32, left:'50%', transform:'translateX(-50%)', opacity: visible ? 1 : 0, transition:'opacity 0.5s 1.5s' }}>
+        <div style={{ borderRadius:'9999px', border:'2px solid rgba(0,0,0,0.12)', padding:4, width:24, height:40, display:'flex', alignItems:'flex-start', justifyContent:'center' }}>
+          <div style={{ width:6, height:'clamp(8px,1.5vw,14px)', borderRadius:'9999px', background:'#3b82f6', animation:'scrollBob 1.5s ease-in-out infinite' }}/>
         </div>
-      </motion.div>
-
-      <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-      `}</style>
+      </div>
     </section>
   );
 }

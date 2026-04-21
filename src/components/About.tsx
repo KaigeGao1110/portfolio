@@ -1,96 +1,55 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
 const stats = [
   { value: '4+', label: 'Projects Shipped' },
   { value: '3', label: 'Cloud Platforms' },
   { value: '1', label: 'Goal: Founder' },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' as const } },
-};
-
 export default function About() {
   return (
-    <section id="about" className="section-pad relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#faf8f5] via-[#faf8f5] to-[#f0eeeb]" />
-
-      <div className="relative z-10 fluid-container">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={containerVariants}
-          className="text-center mb-20"
-        >
-          <motion.span
-            variants={itemVariants}
-            className="text-[#3b82f6] text-sm font-semibold tracking-[0.2em] uppercase"
-          >
+    <section id="about" style={{ position: 'relative', padding: 'var(--section-py) var(--section-px)', background: 'linear-gradient(to bottom, #faf8f5, #f0eeeb)' } as React.CSSProperties}>
+      <div style={{ width: '100%', maxWidth: 'min(100%,1400px)', margin: '0 auto' } as React.CSSProperties}>
+        {/* Header */}
+        <div style={{ textAlign:'center', marginBottom: 80 }}>
+          <span style={{ fontSize:'clamp(0.6875rem,1.5vw,0.875rem)', fontWeight:600, letterSpacing:'0.2em', textTransform:'uppercase', color:'#3b82f6' }}>
             About Me
-          </motion.span>
-          <motion.h2
-            variants={itemVariants}
-            className="fluid-heading mt-4 gradient-text"
-          >
-            Who I Am
-          </motion.h2>
-        </motion.div>
+          </span>
+          <h2 style={{
+            fontSize:'clamp(1.75rem,5vw,3.75rem)', fontWeight:700, lineHeight:1.1, marginTop:16,
+            background:'linear-gradient(135deg,#1a1a1a 0%,#3b82f6 50%,#1a1a1a 100%)',
+            backgroundSize:'200% auto', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
+            backgroundClip:'text', animation:'shimmer 3s ease-in-out infinite',
+          }}>Who I Am</h2>
+        </div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={containerVariants}
-          className="grid lg:grid-cols-2 items-center"
-          style={{ gap: 'clamp(2rem, 5vw, 6rem)' }}
-        >
-          <motion.div variants={itemVariants}>
-            <p className="text-gray-900/70 leading-relaxed mb-6 readable-width">
+        {/* Content grid */}
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:'clamp(2rem,5vw,6rem)', alignItems:'center' }}>
+          <div>
+            <p style={{ color:'rgba(26,26,26,0.7)', lineHeight:1.7, marginBottom:24, fontSize:'clamp(1rem,1.5vw,1.25rem)', maxWidth:'70ch' }}>
               I am a full-stack AI agent architect and cloud infrastructure engineer obsessed
               with building autonomous systems that operate at scale. I specialize in designing
               multi-agent pipelines, hybrid LLM judgment layers, and production-grade cloud
               deployments on GCP and AWS.
             </p>
-            <p className="text-gray-900/70 leading-relaxed readable-width">
-              When I&apos;m not architecting agents, I&apos;m shipping products — from sales intelligence
+            <p style={{ color:'rgba(26,26,26,0.7)', lineHeight:1.7, fontSize:'clamp(1rem,1.5vw,1.25rem)', maxWidth:'70ch' }}>
+              When I'm not architecting agents, I'm shipping products — from sales intelligence
               platforms to longevity research systems. My north star is becoming a founding
               engineer at a company that matters.
             </p>
-          </motion.div>
-
-          <motion.div
-            variants={itemVariants}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6"
-          >
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                variants={itemVariants}
-                className="glass rounded-2xl text-center hover:border-[#3b82f6]/30 transition-all duration-300 group"
-                style={{ padding: 'clamp(1.25rem, 3vw, 2rem)' }}
-              >
-                <div className="text-5xl font-black text-[#3b82f6] mb-2 group-hover:scale-110 transition-transform duration-300">
-                  {stat.value}
-                </div>
-                <div className="text-sm font-medium text-gray-900/50 uppercase tracking-wider">
-                  {stat.label}
-                </div>
-              </motion.div>
+          </div>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:20 }}>
+            {stats.map(s => (
+              <div key={s.label}
+                style={{ background:'#fff', border:'1px solid rgba(0,0,0,0.08)', borderRadius:16, padding:'clamp(1.25rem,3vw,2rem)', textAlign:'center', boxShadow:'0 1px 3px rgba(0,0,0,0.06)', transition:'all 0.3s', cursor:'default' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(59,130,246,0.3)'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(0,0,0,0.08)'; }}>
+                <div style={{ fontSize:40, fontWeight:900, color:'#3b82f6', marginBottom:8, display:'block' }}>{s.value}</div>
+                <div style={{ fontSize:11, fontWeight:500, color:'rgba(26,26,26,0.5)', textTransform:'uppercase', letterSpacing:'0.1em' }}>{s.label}</div>
+              </div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );

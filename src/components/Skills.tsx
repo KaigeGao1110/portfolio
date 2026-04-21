@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
 
 const aiSkills = [
   { name: 'Multi-Agent Orchestration', level: 95 },
@@ -19,86 +19,59 @@ const cloudSkills = [
   { name: 'CI/CD (GitHub Actions, Cloud Build)', level: 82 },
 ];
 
-function SkillBar({ name, level, delay = 0 }: { name: string; level: number; delay?: number }) {
+function SkillBar({ name, level, animate }: { name: string; level: number; animate: boolean }) {
   return (
-    <div className="mb-6 last:mb-0">
-      <div className="flex justify-between mb-2">
-        <span className="text-sm font-medium text-gray-700">{name}</span>
-        <span className="text-sm font-semibold text-[#3b82f6]">{level}%</span>
+    <div style={{ marginBottom: 20 }}>
+      <div style={{ display:'flex', justifyContent:'space-between', marginBottom:6 }}>
+        <span style={{ fontSize:13, fontWeight:500, color:'#374151' }}>{name}</span>
+        <span style={{ fontSize:13, fontWeight:600, color:'#3b82f6' }}>{level}%</span>
       </div>
-      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-        <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-[#3b82f6] to-[#60a5fa]"
-          initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 1, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-        />
+      <div style={{ height:6, background:'#f3f4f6', borderRadius:9999, overflow:'hidden' }}>
+        <div style={{
+          height:'100%', borderRadius:9999,
+          background:'linear-gradient(to right,#3b82f6,#60a5fa)',
+          width: animate ? `${level}%` : '0%',
+          transition: animate ? `width 1s cubic-bezier(0.25,0.46,0.45,0.94)` : 'none',
+        }}/>
       </div>
+    </div>
+  );
+}
+
+function SkillPanel({ title, icon, skills }: { title: string; icon: string; skills: typeof aiSkills }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([e]) => { if (e.isIntersecting) setAnimate(true); }, { threshold: 0.2 });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} style={{ background:'rgba(255,255,255,0.85)', backdropFilter:'blur(12px)', WebkitBackdropFilter:'blur(12px)', border:'1px solid rgba(0,0,0,0.08)', borderRadius:16, padding:'clamp(1.25rem,3vw,2.5rem)', boxShadow:'0 1px 3px rgba(0,0,0,0.06)' }}>
+      <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:32 }}>
+        <div style={{ width:40, height:40, borderRadius:12, background:'#eff6ff', border:'1px solid #dbeafe', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18 }}>{icon}</div>
+        <h3 style={{ fontSize:18, fontWeight:700, color:'#1a1a1a' }}>{title}</h3>
+      </div>
+      {skills.map(s => <SkillBar key={s.name} name={s.name} level={s.level} animate={animate}/>)}
     </div>
   );
 }
 
 export default function Skills() {
   return (
-    <section id="skills" className="section-pad relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#faf8f5] via-[#faf8f5] to-[#faf8f5]" />
-
-      <div className="relative z-10 fluid-container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <span className="text-[#3b82f6] text-sm font-semibold tracking-[0.2em] uppercase">
-            Expertise
-          </span>
-          <h2 className="fluid-heading font-bold mt-4 gradient-text">Skills & Stack</h2>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2"
-          style={{ gap: 'clamp(1.5rem, 4vw, 4rem)' }}>
-          {/* AI & Agents */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="glass rounded-2xl" style={{ padding: "clamp(1.25rem, 3vw, 2.5rem)" }}
-          >
-            <div className="flex items-center gap-3 mb-10">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center">
-                <span className="text-[#3b82f6] text-lg">🤖</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">AI & Agents</h3>
-            </div>
-
-            {aiSkills.map((skill, i) => (
-              <SkillBar key={skill.name} name={skill.name} level={skill.level} delay={i * 0.1} />
-            ))}
-          </motion.div>
-
-          {/* Cloud & Infra */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="glass rounded-2xl" style={{ padding: "clamp(1.25rem, 3vw, 2.5rem)" }}
-          >
-            <div className="flex items-center gap-3 mb-10">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center">
-                <span className="text-[#3b82f6] text-lg">☁️</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">Cloud & Infra</h3>
-            </div>
-
-            {cloudSkills.map((skill, i) => (
-              <SkillBar key={skill.name} name={skill.name} level={skill.level} delay={i * 0.1} />
-            ))}
-          </motion.div>
+    <section id="skills" style={{ padding:'var(--section-py) var(--section-px)', position:'relative', background:'#faf8f5' }}>
+      <div style={{ width:'100%', maxWidth:'min(100%,1400px)', margin:'0 auto' }}>
+        <div style={{ textAlign:'center', marginBottom:80 }}>
+          <span style={{ fontSize:'clamp(0.6875rem,1.5vw,0.875rem)', fontWeight:600, letterSpacing:'0.2em', textTransform:'uppercase', color:'#3b82f6' }}>Expertise</span>
+          <h2 style={{ fontSize:'clamp(1.75rem,5vw,3.75rem)', fontWeight:700, lineHeight:1.1, marginTop:16, background:'linear-gradient(135deg,#1a1a1a 0%,#3b82f6 50%,#1a1a1a 100%)', backgroundSize:'200% auto', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', animation:'shimmer 3s ease-in-out infinite' }}>
+            Skills & Stack
+          </h2>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))', gap:'clamp(1.5rem,4vw,4rem)' }}>
+          <SkillPanel title="AI & Agents" icon="🤖" skills={aiSkills}/>
+          <SkillPanel title="Cloud & Infra" icon="☁️" skills={cloudSkills}/>
         </div>
       </div>
     </section>
