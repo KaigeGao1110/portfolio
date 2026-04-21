@@ -1,0 +1,40 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; background:var(--color-bg); font-family:var(--font-sans); padding:20px; color:var(--color-fg-primary); }
+  .row { display:flex; align-items:baseline; gap:16px; margin-bottom:14px; border-bottom:1px solid rgba(0,0,0,0.05); padding-bottom:14px; }
+  .row:last-child { border:none; margin:0; }
+  .meta { min-width:140px; flex-shrink:0; }
+  .meta .name { font-size:10px; font-weight:600; color:#3b82f6; text-transform:uppercase; letter-spacing:0.1em; display:block; }
+  .meta .val  { font-size:9px; color:#6b7280; font-family:monospace; }
+  .sample { flex:1; color:var(--color-fg-primary); line-height:1.1; }
+</style></head><body>
+<div class="row">
+  <div class="meta"><span class="name">Hero</span><span class="val">clamp(2.5rem,8vw,6rem) · 800</span></div>
+  <div class="sample" style="font-size:clamp(2.5rem,8vw,6rem);font-weight:800;background:linear-gradient(135deg,#1a1a1a 0%,#3b82f6 50%,#1a1a1a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Kaige Gao</div>
+</div>
+<div class="row">
+  <div class="meta"><span class="name">Heading</span><span class="val">clamp(1.75rem,5vw,3.75rem) · 700</span></div>
+  <div class="sample" style="font-size:clamp(1.75rem,5vw,3.75rem);font-weight:700;">Featured Projects</div>
+</div>
+<div class="row">
+  <div class="meta"><span class="name">Subtitle</span><span class="val">clamp(1.25rem,3vw,2.5rem) · 600</span></div>
+  <div class="sample" style="font-size:clamp(1.25rem,3vw,2.5rem);font-weight:600;color:rgba(26,26,26,0.9);">AI Agent Builder</div>
+</div>
+<div class="row">
+  <div class="meta"><span class="name">Body</span><span class="val">clamp(1rem,1.5vw,1.25rem) · 400</span></div>
+  <div class="sample" style="font-size:clamp(1rem,1.5vw,1.25rem);font-weight:400;color:rgba(75,75,75,0.7);line-height:1.6;">Building autonomous systems that work while I sleep.</div>
+</div>
+<div class="row">
+  <div class="meta"><span class="name">Eyebrow</span><span class="val">clamp(.69rem,1.5vw,.875rem) · 600 · 0.2em</span></div>
+  <div class="sample" style="font-size:clamp(0.6875rem,1.5vw,0.875rem);font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:#3b82f6;">About Me</div>
+</div>
+<div class="row">
+  <div class="meta"><span class="name">Small / Tag</span><span class="val">0.75rem · 500</span></div>
+  <div class="sample" style="font-size:0.75rem;font-weight:500;display:flex;gap:6px;">
+    <span style="background:#eff6ff;color:#3b82f6;border:1px solid #dbeafe;border-radius:9999px;padding:3px 10px;">Python</span>
+    <span style="background:#eff6ff;color:#3b82f6;border:1px solid #dbeafe;border-radius:9999px;padding:3px 10px;">FastAPI</span>
+    <span style="background:#eff6ff;color:#3b82f6;border:1px solid #dbeafe;border-radius:9999px;padding:3px 10px;">Cloud Run</span>
+  </div>
+</div>
+</body></html>

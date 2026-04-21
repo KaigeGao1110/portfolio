@@ -1,0 +1,41 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; background:var(--color-bg); font-family:var(--font-sans); padding:20px; color:#1a1a1a; }
+  h4 { font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#6b7280; margin:0 0 8px; }
+  .radii { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .r-box { background:white; border:1px solid rgba(0,0,0,0.08); display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px 14px; }
+  .r-box .val { font-size:9px; color:#6b7280; font-family:monospace; }
+  .r-box .name { font-size:10px; font-weight:600; color:#1a1a1a; }
+  .shadows { display:flex;flex-direction:column;gap:8px;margin-bottom:14px; }
+  .s-box { background:white; border-radius:10px; padding:10px 14px; display:flex;justify-content:space-between;align-items:center; }
+  .s-box .name { font-size:11px;font-weight:600;color:#1a1a1a; }
+  .s-box .val  { font-size:9px;color:#6b7280;font-family:monospace; }
+  .space-row { display:flex;align-items:center;gap:8px;margin-bottom:5px; }
+  .space-bar { background:#3b82f6;height:8px;border-radius:4px;opacity:0.7; }
+  .space-label { font-size:9px;color:#6b7280;font-family:monospace;min-width:80px; }
+</style></head><body>
+<h4>Border Radius</h4>
+<div class="radii">
+  <div class="r-box" style="border-radius:6px"><div class="name">sm</div><div class="val">6px / 0.375rem</div></div>
+  <div class="r-box" style="border-radius:8px"><div class="name">md</div><div class="val">8px / 0.5rem</div></div>
+  <div class="r-box" style="border-radius:12px"><div class="name">lg</div><div class="val">12px / 0.75rem</div></div>
+  <div class="r-box" style="border-radius:16px"><div class="name">xl</div><div class="val">16px / 1rem</div></div>
+  <div class="r-box" style="border-radius:9999px"><div class="name">full</div><div class="val">9999px pill</div></div>
+</div>
+<h4>Shadows</h4>
+<div class="shadows">
+  <div class="s-box" style="box-shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.04)"><span class="name">card (default)</span><span class="val">0 1px 3px …06 · 0 4px 16px …04</span></div>
+  <div class="s-box" style="box-shadow:0 4px 24px rgba(0,0,0,0.08),0 8px 32px rgba(0,0,0,0.06)"><span class="name">card (hover)</span><span class="val">0 4px 24px …08 · 0 8px 32px …06</span></div>
+  <div class="s-box" style="box-shadow:0 4px 20px rgba(59,130,246,0.35)"><span class="name">button (hover)</span><span class="val">0 4px 20px rgba(59,130,246,.35)</span></div>
+  <div class="s-box" style="box-shadow:0 1px 2px rgba(0,0,0,0.04)"><span class="name">nav</span><span class="val">0 1px 2px rgba(0,0,0,.04)</span></div>
+</div>
+<h4>Spacing Scale (selected)</h4>
+<div class="space-row"><div class="space-bar" style="width:4px"></div><span class="space-label">space-1 · 4px</span></div>
+<div class="space-row"><div class="space-bar" style="width:8px"></div><span class="space-label">space-2 · 8px</span></div>
+<div class="space-row"><div class="space-bar" style="width:16px"></div><span class="space-label">space-4 · 16px</span></div>
+<div class="space-row"><div class="space-bar" style="width:24px"></div><span class="space-label">space-6 · 24px</span></div>
+<div class="space-row"><div class="space-bar" style="width:32px"></div><span class="space-label">space-8 · 32px</span></div>
+<div class="space-row"><div class="space-bar" style="width:48px"></div><span class="space-label">space-12 · 48px</span></div>
+<div class="space-row"><div class="space-bar" style="width:64px"></div><span class="space-label">space-16 · 64px</span></div>
+</body></html>

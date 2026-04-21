@@ -1,0 +1,49 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; background:var(--color-bg); font-family:var(--font-sans); padding:20px; }
+  h4 { font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#6b7280; margin:0 0 10px; }
+  .row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:16px; }
+  .label { font-size:10px; color:#6b7280; margin-top:4px; }
+  .col { display:flex;flex-direction:column;align-items:flex-start;gap:4px; }
+  /* button reset */
+  button,a { font-family:var(--font-sans); text-decoration:none; }
+</style></head><body>
+<h4>Primary Button</h4>
+<div class="row">
+  <div class="col">
+    <a class="kg-btn-primary" style="font-size:14px;padding:10px 20px;">View Projects</a>
+    <span class="label">default</span>
+  </div>
+  <div class="col">
+    <a class="kg-btn-primary" style="font-size:14px;padding:10px 20px;background:#60a5fa;box-shadow:0 4px 20px rgba(59,130,246,0.35);">View Projects</a>
+    <span class="label">hover</span>
+  </div>
+  <div class="col">
+    <a class="kg-btn-primary" style="font-size:14px;padding:10px 20px;opacity:0.5;pointer-events:none;">View Projects</a>
+    <span class="label">disabled</span>
+  </div>
+</div>
+<h4>Outline Button</h4>
+<div class="row">
+  <div class="col">
+    <a class="kg-btn-outline" style="font-size:14px;padding:10px 20px;">Get in Touch</a>
+    <span class="label">default</span>
+  </div>
+  <div class="col">
+    <a class="kg-btn-outline" style="font-size:14px;padding:10px 20px;background:rgba(59,130,246,0.10);border-color:#3b82f6;">Get in Touch</a>
+    <span class="label">hover</span>
+  </div>
+</div>
+<h4>Nav CTA — "Hire Me"</h4>
+<div class="row">
+  <div class="col">
+    <a style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:7px 14px;border-radius:8px;background:#eff6ff;color:#3b82f6;border:1px solid #dbeafe;text-decoration:none;">Hire Me</a>
+    <span class="label">default</span>
+  </div>
+  <div class="col">
+    <a style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:7px 14px;border-radius:8px;background:#dbeafe;color:#3b82f6;border:1px solid #93c5fd;text-decoration:none;">Hire Me</a>
+    <span class="label">hover</span>
+  </div>
+</div>
+</body></html>

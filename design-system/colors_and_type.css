@@ -1,0 +1,355 @@
+/**
+ * Kaige Gao Design System — Colors & Typography
+ * Source: portfolio/src/app/globals.css + component analysis
+ * Font: Inter (Google Fonts, weights 300–900)
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   BASE COLOR TOKENS
+───────────────────────────────────────────────────────────── */
+:root {
+  /* Background */
+  --color-bg:           #faf8f5;   /* Warm off-white/cream — page background */
+  --color-bg-section:   #f0eeeb;   /* Slightly darker cream — alternate sections */
+  --color-bg-white:     #ffffff;   /* Card backgrounds */
+  --color-bg-glass:     rgba(255, 255, 255, 0.85); /* Frosted glass cards */
+
+  /* Foreground */
+  --color-fg-primary:   #1a1a1a;   /* Main text */
+  --color-fg-secondary: #6b7280;   /* Muted / secondary text (gray-500) */
+  --color-fg-tertiary:  rgba(75, 75, 75, 0.7); /* Dimmed body text */
+  --color-fg-subtle:    rgba(26, 26, 26, 0.5);  /* Very subtle label text */
+
+  /* Accent — Blue */
+  --color-accent:       #3b82f6;   /* Blue-500 — primary accent */
+  --color-accent-dim:   #2563eb;   /* Blue-600 — hover / pressed */
+  --color-accent-light: #60a5fa;   /* Blue-400 — light hover state */
+  --color-accent-bg:    #eff6ff;   /* Blue-50 — tag/icon backgrounds */
+  --color-accent-border:#dbeafe;   /* Blue-100 — tag/icon borders */
+  --color-accent-border-hover: rgba(59, 130, 246, 0.40); /* Card hover border */
+
+  /* Purple — ambient orb only, not used in UI */
+  --color-purple-orb:   rgba(139, 92, 246, 0.10);
+
+  /* Borders */
+  --color-border:       rgba(0, 0, 0, 0.08);   /* Default card/surface border */
+  --color-border-nav:   rgba(229, 231, 235, 1); /* Gray-200 navbar border */
+
+  /* Shadows */
+  --shadow-card:        0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  --shadow-card-hover:  0 4px 24px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.06);
+  --shadow-button:      0 4px 20px rgba(59, 130, 246, 0.35);
+  --shadow-nav:         0 1px 2px rgba(0,0,0,0.04);
+
+  /* Selection */
+  --color-selection-bg: rgba(59, 130, 246, 0.20);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FLUID TYPE SCALE
+   All sizes use clamp(min, viewport-relative, max)
+   for seamless responsiveness — no hard breakpoints.
+───────────────────────────────────────────────────────────── */
+:root {
+  /* Display / Hero — 40px mobile → 96px desktop */
+  --text-hero:     clamp(2.5rem, 8vw, 6rem);
+
+  /* Section headings — 28px mobile → 60px desktop */
+  --text-heading:  clamp(1.75rem, 5vw, 3.75rem);
+
+  /* Subtitle / role typewriter — 20px mobile → 40px desktop */
+  --text-subtitle: clamp(1.25rem, 3vw, 2.5rem);
+
+  /* Body — 16px mobile → 20px desktop */
+  --text-body:     clamp(1rem, 1.5vw, 1.25rem);
+
+  /* Eyebrow labels — 11px mobile → 14px desktop */
+  --text-eyebrow:  clamp(0.6875rem, 1.5vw, 0.875rem);
+
+  /* Small / tags */
+  --text-sm:       0.875rem;   /* 14px */
+  --text-xs:       0.75rem;    /* 12px */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FONT FAMILY
+───────────────────────────────────────────────────────────── */
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* No serif or mono defined in the portfolio */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FONT WEIGHTS
+───────────────────────────────────────────────────────────── */
+:root {
+  --weight-light:      300;
+  --weight-regular:    400;
+  --weight-medium:     500;
+  --weight-semibold:   600;
+  --weight-bold:       700;
+  --weight-extrabold:  800;
+  --weight-black:      900;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LINE HEIGHTS
+───────────────────────────────────────────────────────────── */
+:root {
+  --leading-hero:   1.05;
+  --leading-heading:1.1;
+  --leading-subtitle:1.2;
+  --leading-body:   1.6;
+  --leading-label:  1.4;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LETTER SPACING
+───────────────────────────────────────────────────────────── */
+:root {
+  --tracking-tight:   -0.02em;
+  --tracking-normal:   0;
+  --tracking-wide:     0.05em;   /* nav links */
+  --tracking-wider:    0.1em;    /* logo monogram */
+  --tracking-eyebrow:  0.2em;    /* section eyebrows (0.2em) */
+  --tracking-hero-label: 0.25em; /* hero "Welcome to my digital universe" */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SPACING TOKENS
+───────────────────────────────────────────────────────────── */
+:root {
+  --space-1:  0.25rem;   /*  4px */
+  --space-2:  0.5rem;    /*  8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+
+  /* Fluid section padding */
+  --section-py: clamp(4rem, 8vw, 8rem);
+  --section-px: clamp(1rem, 5vw, 3rem);
+
+  /* Card padding */
+  --card-pad: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BORDER RADIUS
+───────────────────────────────────────────────────────────── */
+:root {
+  --radius-sm:   0.375rem;  /*  6px — small elements */
+  --radius-md:   0.5rem;    /*  8px — rounded-lg */
+  --radius-lg:   0.75rem;   /* 12px — rounded-xl, buttons */
+  --radius-xl:   1rem;      /* 16px — rounded-2xl, cards */
+  --radius-full: 9999px;    /* pill / circle */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LAYOUT TOKENS
+───────────────────────────────────────────────────────────── */
+:root {
+  --container-max:  min(100%, 1400px);
+  --readable-width: 70ch;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SEMANTIC / COMPONENT ALIASES
+───────────────────────────────────────────────────────────── */
+:root {
+  /* Text semantic */
+  --text-color-primary:   var(--color-fg-primary);
+  --text-color-secondary: var(--color-fg-secondary);
+  --text-color-accent:    var(--color-accent);
+  --text-color-muted:     var(--color-fg-tertiary);
+
+  /* Surface semantic */
+  --surface-page:    var(--color-bg);
+  --surface-card:    var(--color-bg-white);
+  --surface-glass:   var(--color-bg-glass);
+  --surface-tag:     var(--color-accent-bg);
+
+  /* Border semantic */
+  --border-default:  var(--color-border);
+  --border-tag:      var(--color-accent-border);
+  --border-focus:    var(--color-accent);
+
+  /* Interactive semantic */
+  --btn-primary-bg:      var(--color-accent);
+  --btn-primary-text:    #ffffff;
+  --btn-primary-hover:   var(--color-accent-light);
+  --btn-outline-border:  rgba(59, 130, 246, 0.40);
+  --btn-outline-text:    var(--color-accent);
+  --btn-outline-hover-bg:rgba(59, 130, 246, 0.10);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   UTILITY CLASSES
+───────────────────────────────────────────────────────────── */
+
+/* Gradient text — animated shimmer */
+.kg-gradient-text {
+  background: linear-gradient(135deg, #1a1a1a 0%, #3b82f6 50%, #1a1a1a 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: kg-shimmer 3s ease-in-out infinite;
+}
+@keyframes kg-shimmer {
+  0%, 100% { background-position: 0% center; }
+  50%       { background-position: 200% center; }
+}
+
+/* Glass card */
+.kg-glass {
+  background: var(--surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-card);
+}
+
+/* Solid white card */
+.kg-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.kg-card:hover {
+  border-color: var(--color-accent-border-hover);
+  box-shadow: var(--shadow-card-hover);
+  transform: scale(1.02);
+}
+
+/* Tag / pill */
+.kg-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  background: var(--surface-tag);
+  color: var(--color-accent);
+  border: 1px solid var(--border-tag);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+}
+
+/* Eyebrow label */
+.kg-eyebrow {
+  font-size: var(--text-eyebrow);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Primary button */
+.kg-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-radius: var(--radius-lg);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-body);
+  padding: clamp(0.625rem, 1.5vw, 0.875rem) clamp(1.25rem, 3vw, 2rem);
+  transition: background 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+.kg-btn-primary:hover {
+  background: var(--btn-primary-hover);
+  box-shadow: var(--shadow-button);
+}
+
+/* Outline button */
+.kg-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  color: var(--btn-outline-text);
+  border: 1px solid var(--btn-outline-border);
+  border-radius: var(--radius-lg);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-body);
+  padding: clamp(0.625rem, 1.5vw, 0.875rem) clamp(1.25rem, 3vw, 2rem);
+  transition: background 0.3s, border-color 0.3s;
+  text-decoration: none;
+  cursor: pointer;
+}
+.kg-btn-outline:hover {
+  background: var(--btn-outline-hover-bg);
+  border-color: var(--color-accent);
+}
+
+/* Icon box */
+.kg-icon-box {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--surface-tag);
+  border: 1px solid var(--border-tag);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Cyber grid background */
+.kg-cyber-grid {
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+  background-size: clamp(30px, 5vw, 50px) clamp(30px, 5vw, 50px);
+}
+
+/* Section container */
+.kg-section {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+  padding-left: var(--section-px);
+  padding-right: var(--section-px);
+}
+
+.kg-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f0ebe4; }
+::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent-dim); }
+
+/* Selection */
+::selection { background: var(--color-selection-bg); color: var(--color-fg-primary); }
+
+/* Float animations (decorative shapes) */
+@keyframes kg-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-20px) rotate(2deg); }
+  66%       { transform: translateY(10px) rotate(-2deg); }
+}
+@keyframes kg-pulse-glow {
+  0%, 100% { opacity: 0.4; filter: blur(80px); }
+  50%       { opacity: 0.7; filter: blur(100px); }
+}
+.kg-float          { animation: kg-float 8s ease-in-out infinite; }
+.kg-float-delayed  { animation: kg-float 10s ease-in-out 2s infinite; }
+.kg-float-delayed2 { animation: kg-float 12s ease-in-out 4s infinite; }
+.kg-pulse-glow     { animation: kg-pulse-glow 4s ease-in-out infinite; }

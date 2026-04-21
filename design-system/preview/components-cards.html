@@ -1,0 +1,52 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; background:var(--color-bg); font-family:var(--font-sans); padding:20px; }
+  h4 { font-size:10px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; color:#6b7280; margin:0 0 8px; }
+  .row { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+  .project-card { background:white;border:1px solid rgba(0,0,0,0.08);border-radius:16px;padding:18px;width:220px;position:relative;overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.04); }
+  .project-card .glow { position:absolute;top:0;right:0;width:64px;height:64px;background:rgba(59,130,246,0.05);border-radius:50%;filter:blur(16px); }
+  .project-card h3 { font-size:15px;font-weight:700;color:#1a1a1a;margin:0 0 2px; }
+  .project-card .sub { font-size:11px;color:#3b82f6;font-weight:500;opacity:0.7;margin-bottom:8px; }
+  .project-card p { font-size:11px;color:#6b7280;line-height:1.5;margin:0 0 10px; }
+  .tags { display:flex;gap:4px;flex-wrap:wrap; }
+  .project-card.hover { border-color:rgba(59,130,246,0.4);box-shadow:0 4px 24px rgba(0,0,0,0.08); }
+  .glass-card { background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,0.08);border-radius:16px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.04);width:180px; }
+</style></head><body>
+<h4>Project Card — Default</h4>
+<div class="row">
+  <div class="project-card">
+    <div class="glow"></div>
+    <h3>Scout</h3>
+    <div class="sub">Sales Intelligence Agent</div>
+    <p>Multi-agent sales research platform that turns raw company signals into actionable strategy.</p>
+    <div class="tags">
+      <span class="kg-tag">Python</span>
+      <span class="kg-tag">FastAPI</span>
+      <span class="kg-tag">GCP</span>
+    </div>
+  </div>
+  <div class="project-card hover">
+    <div class="glow" style="background:rgba(59,130,246,0.10)"></div>
+    <h3 style="color:#3b82f6">Scout</h3>
+    <div class="sub">Sales Intelligence Agent</div>
+    <p>Multi-agent sales research platform that turns raw company signals into actionable strategy.</p>
+    <div class="tags">
+      <span class="kg-tag">Python</span>
+      <span class="kg-tag">FastAPI</span>
+      <span class="kg-tag">GCP</span>
+    </div>
+  </div>
+</div>
+<h4>Glass Card</h4>
+<div class="row">
+  <div class="glass-card">
+    <div style="font-size:28px;font-weight:900;color:#3b82f6;margin-bottom:4px;">4+</div>
+    <div style="font-size:10px;font-weight:500;color:rgba(26,26,26,0.5);text-transform:uppercase;letter-spacing:0.1em;">Projects Shipped</div>
+  </div>
+  <div class="glass-card" style="border-color:rgba(59,130,246,0.3)">
+    <div style="font-size:11px;font-weight:600;color:#1a1a1a;margin-bottom:6px;">Hover state</div>
+    <div style="font-size:10px;color:#6b7280;">border turns blue</div>
+  </div>
+</div>
+</body></html>
