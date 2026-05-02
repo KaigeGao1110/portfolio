@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PHProvider } from "./providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased"><PHProvider>{children}</PHProvider></body>
     </html>
   );
 }
